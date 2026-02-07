@@ -17,10 +17,24 @@ const Dashbord = () => {
         <section className="Widgatcontainer">
           <WidgetItom
             heading="Revenue"
-            value={1234}
-            percent={12}
+            value={340000}
+            percent={40}
             color="green"
-            amount
+            amount={false}
+          />
+          <WidgetItom
+            heading="Revenue"
+            value={400}
+            percent={-14}
+            color="rgb(0 198 202)"
+            amount={false}
+          />
+          <WidgetItom
+            heading="Revenue"
+            value={3400}
+            percent={80}
+            color="rgb(0 198 202)"
+            amount={false}
           />
         </section>
       </main>
@@ -57,6 +71,18 @@ const WidgetItom = ({
             <HiTrendingDown /> - {percent}% {''}
           </span>
         )}
+      </div>
+
+      <div
+        className="widgetcircle"
+        style={{
+          background: `conic-greeen(
+        ${color} ${(Math.abs(percent) / 100) * 360}deg,
+        rgb(225, 225, 225) 0
+        )`,
+        }}
+      >
+        <span style={{ color }}>{percent}%</span>
       </div>
     </article>
   );
