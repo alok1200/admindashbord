@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IconType } from 'react-icons';
+import { type IconType } from 'react-icons';
 import { AiFillFileText } from 'react-icons/ai';
 import {
   FaChartBar,
@@ -15,7 +15,7 @@ import {
   RiDashboardFill,
   RiShoppingBag3Fill,
 } from 'react-icons/ri';
-import { Link, Location, useLocation } from 'react-router-dom';
+import { Link, type Location, useLocation } from 'react-router-dom';
 
 const AdminSidebar = () => {
   const location = useLocation();
