@@ -1,5 +1,11 @@
+import AdminSidebar from '../component/adminSideBar';
+
 const Transaction = () => {
-  return <div>Transaction</div>;
+  return (
+    <div className="admin-conytainer">
+      <AdminSidebar />
+    </div>
+  );
 };
 
 export default Transaction;

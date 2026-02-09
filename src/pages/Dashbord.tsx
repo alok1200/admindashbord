@@ -6,7 +6,7 @@ const userImg =
   'https://www.shutterstock.com/image-photo/sun-sets-behind-mountain-ranges-600nw-2479236003.jpg';
 const Dashbord = () => {
   return (
-    <div className="adiminContainer">
+    <div className="adimin-container">
       <AdminSideBar />
       <main className="dashbord">
         <div className="bar">
@@ -14,7 +14,7 @@ const Dashbord = () => {
           <input type="text" placeholder="Search for data users docs" />
           <img src={userImg} alt="User" />
         </div>
-        <section className="Widgatcontainer">
+        <section className="widget-container">
           <WidgetItom
             heading="Revenue"
             value={340000}
@@ -36,6 +36,16 @@ const Dashbord = () => {
             color="rgb(0 198 202)"
             amount={false}
           />
+        </section>
+
+        <section className="graph-container">
+          <div className="revenue-chart">
+            <h2>Revenue & Expenses</h2>
+          </div>
+
+          <div className="dashboard-categories">
+            <h2>Inventery</h2>
+          </div>
         </section>
       </main>
     </div>
@@ -74,7 +84,7 @@ const WidgetItom = ({
       </div>
 
       <div
-        className="widgetcircle"
+        className="widget-circle"
         style={{
           background: `conic-greeen(
         ${color} ${(Math.abs(percent) / 100) * 360}deg,
