@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 import AdminSidebar from '../components/AdminSidebar';
 import { Column } from 'react-table';
 import { useState, useCallback } from 'react';
