@@ -1,5 +1,5 @@
-import AdminSidebar from '../../components/AdminSidebar';
-import { LineChart } from '../../components/Charts';
+import AdminSidebar from '../../component/AdminSideBar';
+import { LineChart } from '../../component/Charts.tsx';
 
 const months = [
   'January',

@@ -3,14 +3,32 @@ import {
   AiOutlineSortDescending,
 } from 'react-icons/ai';
 import {
-  Column,
+  type Column,
+  type TableOptions,
+  type TableInstance,
+  type HeaderGroup,
+  type Row,
+  type Cell,
+  type TableState,
+  type UsePaginationInstanceProps,
+  type UsePaginationState,
+  type UseSortByInstanceProps,
+  type UseSortByColumnProps,
+  type UseSortByState,
   usePagination,
   useSortBy,
   useTable,
-  TableOptions,
 } from 'react-table';
 
-function TableHOC<T extends Object>(
+type TableInstanceWithHooks<T extends object> = TableInstance<T> &
+  UsePaginationInstanceProps<T> &
+  UseSortByInstanceProps<T>;
+
+type TableStateWithHooks<T extends object> = TableState<T> &
+  UsePaginationState<T> &
+  UseSortByState<T>;
+
+function TableHOC<T extends object>(
   columns: Column<T>[],
   data: T[],
   containerClassname: string,
@@ -23,8 +41,14 @@ function TableHOC<T extends Object>(
       data,
       initialState: {
         pageSize: 6,
-      },
+      } as Partial<TableStateWithHooks<T>>,
     };
+
+    const tableInstance = useTable<T>(
+      options,
+      useSortBy,
+      usePagination,
+    ) as TableInstanceWithHooks<T>;
 
     const {
       getTableProps,
@@ -34,11 +58,13 @@ function TableHOC<T extends Object>(
       prepareRow,
       nextPage,
       pageCount,
-      state: { pageIndex },
       previousPage,
       canNextPage,
       canPreviousPage,
-    } = useTable(options, useSortBy, usePagination);
+      state,
+    } = tableInstance;
+
+    const { pageIndex } = state as TableStateWithHooks<T>;
 
     return (
       <div className={containerClassname}>
@@ -46,33 +72,42 @@ function TableHOC<T extends Object>(
 
         <table className="table" {...getTableProps()}>
           <thead>
-            {headerGroups.map((headerGroup) => (
+            {headerGroups.map((headerGroup: HeaderGroup<T>) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render('Header')}
-                    {column.isSorted && (
-                      <span>
-                        {' '}
-                        {column.isSortedDesc ? (
-                          <AiOutlineSortDescending />
-                        ) : (
-                          <AiOutlineSortAscending />
-                        )}
-                      </span>
-                    )}
-                  </th>
-                ))}
+                {headerGroup.headers.map((column) => {
+                  const sortColumn = column as HeaderGroup<T> &
+                    UseSortByColumnProps<T>;
+
+                  return (
+                    <th
+                      {...sortColumn.getHeaderProps(
+                        sortColumn.getSortByToggleProps(),
+                      )}
+                    >
+                      {sortColumn.render('Header')}
+                      {sortColumn.isSorted && (
+                        <span>
+                          {' '}
+                          {sortColumn.isSortedDesc ? (
+                            <AiOutlineSortDescending />
+                          ) : (
+                            <AiOutlineSortAscending />
+                          )}
+                        </span>
+                      )}
+                    </th>
+                  );
+                })}
               </tr>
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {page.map((row) => {
+            {page.map((row: Row<T>) => {
               prepareRow(row);
 
               return (
                 <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
+                  {row.cells.map((cell: Cell<T>) => (
                     <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                   ))}
                 </tr>

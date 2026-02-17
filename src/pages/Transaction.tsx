@@ -1,7 +1,7 @@
-import { Column } from 'react-table';
-import AdminSidebar from '../components/AdminSidebar';
-import { type ReactElement, useState, useCallback } from 'react';
-import TableHOC from '../components/TableHOC';
+import { type Column } from 'react-table';
+import AdminSidebar from '../component/AdminSideBar';
+import { type ReactElement, useState } from 'react';
+import TableHOC from '../component/TableHOC';
 import { Link } from 'react-router-dom';
 
 interface DataType {
@@ -70,15 +70,12 @@ const arr: DataType[] = [
 const Transaction = () => {
   const [data] = useState<DataType[]>(arr);
 
-  const Table = useCallback(
-    TableHOC<DataType>(
-      columns,
-      data,
-      'dashboard-product-box',
-      'Transactions',
-      true,
-    ),
-    [],
+  const Table = TableHOC<DataType>(
+    columns,
+    data,
+    'dashboard-product-box',
+    'Transactions',
+    true,
   );
 
   return (
