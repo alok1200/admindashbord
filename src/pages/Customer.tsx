@@ -1,8 +1,8 @@
 import { type ReactElement } from 'react';
-import AdminSidebar from '../components/AdminSidebar';
-import { Column } from 'react-table';
+import AdminSidebar from '../component/AdminSideBar';
+import { type Column } from 'react-table';
 import { useState, useCallback } from 'react';
-import TableHOC from '../components/TableHOC';
+import TableHOC from '../component/TableHOC';
 import { FaTrash } from 'react-icons/fa';
 
 interface DataType {
